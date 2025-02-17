@@ -1,0 +1,203 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans cette section, il est demandé d'appliquer l'approche constructive pour la         %
+% construction de votre code.                                                            %
+%                                                                                        %
+% Pour chaque Sous-Problème (une sous-section/SP):                                       %
+% - {Pré} INIT {INV}                                                                     %
+% - déterminer le Critère d'Arrêt (et donc le Gardien de Boucle)                         %
+% - {INV & B} ITER {INV}                                                                 %
+% - {INV & !B} END {Post}                                                                %
+% - Fonction de Terminaison (pensez à justifier sur base de l'Invariant Graphique)       %
+% (une sous-sous-section/tiret)                                                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Approche Constructive}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item[\textbullet] Spécification du problème général
+\end{itemize}
+\begin{lstlisting}
+/*
+(>\coms{$ * $@pre$: $\;$ T $\;$ $initialisé$ $\;$ \wedge $\;$ N > 0 \wedge min\_pos $\;$ $initialisé$ $\;$ \wedge $\;$ max\_pos $\;$ $initialisé$ \newline * $@post$ : 
+$\;$ $T = T_0 $\;$ \wedge $\;$ $N = N_0$ $\;$ \wedge $\;$ somme = SUM(T,N,min\_pos,max\_pos) $}<)
+*/
+int somme(T,N,*min_pos,*max_pos);
+\end{lstlisting}
+\newline
+\begin{itemize}
+    \item[\textbullet] Approche constructive
+\newline
+\end{itemize}
+\begin{lstlisting}
+    int somme(T,N,*min_pos,*max_pos){
+    assert(T != NULL && N > 0 && min_pos != NULL && max_pos != NULL);
+    //PRE $\equiv$ $T$ initialisé $\wedge$ $N > 0$ $\wedge$ $min\_pos$ init $\wedge$ $max\_pos$ init
+    
+    int min = T[0];
+    // $T$ = $T_0$ $\wedge$ $N$ = $N_0$ $\wedge$ $min = T[0]$
+    int max = T[0];
+     // $T$ = $T_0$ $\wedge$ $N$ = $N_0$ $\wedge$ $min = T[0]$ $\wedge$ $max = T[0]$
+    int sum = T[0];
+    // $T$ = $T_0$ $\wedge$ $N$ = $N_0$ $\wedge$ $min = T[0]$ $\wedge$ $max = T[0]$ $\wedge$ $sum = T[0]$
+    int new_sum = 0;
+    // $T$ = $T_0$ $\wedge$ $N$ = $N_0$ $\wedge$ $min = T[0]$ $\wedge$ $max = T[0]$ $\wedge$ $sum = T[0]$ $\wedge$ $new\_sum = 0$
+    *min_pos = *max_pos = 0;
+    /*
+    (>\coms{$T$ = $T_0$ $\wedge$ $N$ = $N_0$ $\wedge$ $min = T[0]$ $\wedge$ $max = T[0]$ $\wedge$ $sum = T[0]$}<)
+    (>\coms{$\wedge$ $new\_sum = 0$ $\wedge$ $*min\_pos = 0$ $\wedge$ $*max\_pos = 0$}<)
+    */
+    int i = 0;
+    /*
+    (>\coms{$T$ = $T_0$ $\wedge$ $N$ = $N_0$ $\wedge$ $min = T[0]$ $\wedge$ $max = T[0]$ $\wedge$ $sum = T[0]$ }<)
+    (>\coms{$\wedge$ $new\_sum = 0$ $\wedge$ $*min\_pos = 0$ $\wedge$ $*max\_pos = 0$ $\wedge$ $i = 0$}<)
+    (>\coms{$=> *min\_pos = MINPOS(T,0,0) = MINPOS(T,inf,sup)$ $\wedge$ }<)
+    (>\coms{$*max\_pos = MAXPOS(T,0,0) = MAXPOS(T,inf,sup)$}<)
+    (>\coms{$\wedge$ $sum = SUM(T,1,0,0) = SUM(T,1,inf,sup)$}<)
+    (>\coms{$\wedge$ $new\_sum = NEWSUM(T,1,min\_pos,max\_pos) = NEWSUM(T,1,inf,sup)$}<)
+    */
+    /*
+    (>\coms{$INV$ $\equiv$ $N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N$  $\wedge$ $*min\_pos = MINPOS(T,0,i)$ }<)
+    (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+    (>\coms{$\wedge$ $new\_sum = NEWSUM(T,i+1,*min\_pos,*max\_pos)$}<)
+    */
+    while(i < N){
+    /*
+    (>\coms{$INV$ $\wedge$ $B$ $\equiv$ $N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$ }<)
+    (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+    (>\coms{$\wedge$ $new\_sum = NEWSUM(T,i+1,*min\_pos,*max\_pos)$}<)
+    */
+    new_sum += T[i];
+    /*
+    (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$ }<)
+    (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+    (>\coms{$\wedge$ $new\_sum = NEWSUM(T,i+2,*min\_pos,*max\_pos)$}<)
+    */
+     if(T[i] < min){
+     /*
+     (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+     (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+     (>\coms{$\wedge$ $new\_sum = NEWSUM(T,i+2,*min\_pos,*max\_pos)$ $\wedge$ $T[i] < min$}<)
+     */
+          if(*max_pos <= *min_pos)
+            /*
+            (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+            (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+            (>\coms{$\wedge$ $new\_sum = NEWSUM(T,i+2,*min\_pos,*max\_pos)$ $\wedge$ $T[i] < min$}<) 
+            (>\coms{$\wedge$ $*max\_pos$ $\leq$ $*min\_pos$}<)
+            */
+            sum += new_sum - T[*min_pos];
+            /*
+            (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+            (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$}<)
+            (>\coms{$\wedge$ $new\_sum = NEWSUM(T,i+2,*min\_pos,*max\_pos)$ $\wedge$ $T[i] < min$}<) 
+            (>\coms{$\wedge$ $*max\_pos$ $\leq$ $*min\_pos$ $\wedge$ $sum = SUM(T, i+1, *min\_pos, *max\_pos)  +$}<)
+            (>\coms{($new\_sum$ - $T[*min\_pos])$}<)
+            */
+
+          else
+            /*
+            (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+            (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+            (>\coms{$\wedge$ $new\_sum$ = NEWSUM(T,i+2,*min\_pos,*max\_pos) $\wedge$ $T[i] < min$ $\wedge$ $*max\_pos$ > $*min\_pos$}<) 
+            */
+            
+            sum = new_sum;
+            /*
+            (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+            (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$$\wedge$ $new\_sum = NEWSUM(T,i+2,*min\_pos,*max\_pos)$}<)
+            (>\coms{$\wedge$ $T[i] < min$ $\wedge$ $*max\_pos$ > $*min\_pos$ $\wedge$ sum = $new\_sum$}<) 
+            */
+    
+    new_sum = T[i];
+    /*
+     (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+     (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+     (>\coms{$\wedge$ $new\_sum = T[i]$ $\wedge$ $T[i] < min$}<)
+     */
+    min = T[i];
+    /*
+     (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+     (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+     (>\coms{$\wedge$ $new\_sum = T[i]$ $\wedge$ $T[i] < min$ $\wedge$ $min = T[i]$}<)
+     */
+    *min_pos = i;
+    /*
+     (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$}<)
+     (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,i,*max\_pos)$}<)
+     (>\coms{$\wedge$ $new\_sum = T[i]$ $\wedge$ $T[i] < min$ $\wedge$ $min = T[i]$ $\wedge$ $*min\_pos = i$}<)
+     */
+    }
+     if(T[i] > max){
+     /*
+     (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+     (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+     (>\coms{$\wedge$ $new\_sum = NEWSUM(T,i+2,*min\_pos,*max\_pos)$ $\wedge$ $T[i] > max$}<)
+     */
+          if(*min_pos <= *max_pos)
+            /*
+            (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+            (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+            (>\coms{$\wedge$ $new\_sum = NEWSUM(T,i+2,*min\_pos,*max\_pos)$ $\wedge$ $T[i] > max$}<)
+            (>\coms{$\wedge$ $*min\_pos$ $\leq$ $*max\_pos$}<)
+            */
+            sum += new_sum - T[*max_pos];
+            /*
+            (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+            (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$}<)
+            (>\coms{$\wedge$ $new\_sum = NEWSUM(T,i+2,*min\_pos,*max\_pos)$ $\wedge$ $T[i] > max$}<)
+            (>\coms{$\wedge$ $*min\_pos$ $\leq$ $*max\_pos$ $\wedge$ $sum = SUM(T,i+1, $*min\_pos$, $*max\_pos$)$ +}<)
+            (>\coms{($new\_sum$ - $T[*max\_pos])$}<)
+            */
+
+          else
+          /*
+            (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+            (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+            (>\coms{$\wedge$ $new\_sum$ = $NEWSUM(T,i+2,*min\_pos,*max\_pos)$ $\wedge$ $T[i] > max$ $\wedge$ $*min\_pos$ > $*max\_pos$}<) 
+            */
+            sum  = new_sum
+            /*
+            (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+            (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $new\_sum$ = $NEWSUM(T,i+2,*min\_pos,*max\_pos)$}<)
+            (>\coms{ $\wedge$ $T[i] > max$ $\wedge$ $*min\_pos$ > $*max\_pos$ $\wedge$ sum = $new\_sum$}<) 
+            */
+
+    new_sum = T[i];
+    /*
+     (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+     (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+     (>\coms{$\wedge$ $new\_sum = T[i]$ $\wedge$ $T[i] > max$}<)
+     */
+    max = T[i];
+    /*
+     (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+     (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i)$ $\wedge$ $sum = SUM(T,i+1,*min\_pos,*max\_pos)$}<)
+     (>\coms{$\wedge$ $new\_sum = T[i]$ $\wedge$ $T[i] > max$ $\wedge$ $max = T[i]$}<)
+    */
+    *max_pos = i;
+    /*
+     (>\coms{$N = N_0$ $\wedge$ $T = T_0$ $\wedge$ $0$ $\leq$ $inf$ $\leq$ $sup$ $\leq$ $i$ $\leq$ $N-1$ $\wedge$ $*min\_pos = MINPOS(T,0,i)$}<)
+     (>\coms{$\wedge$ $sum = SUM(T,i+1,*min\_pos,i)$}<)
+     (>\coms{$\wedge$ $new\_sum = T[i]$ $\wedge$ $T[i] > max$ $\wedge$ $max = T[i]$ $\wedge$ $*max\_pos$ = i}<)
+    */
+    }
+    i++;
+    /*
+    (>\coms{$INV$ $\equiv$ $0$ $\leq$ $i$ $\leq$ $N$ $\wedge$ $T = T_0$ $\wedge$ $N = N_0$}<)
+    (>\coms{$\wedge$ $*min\_pos = MINPOS(T,0,i+1)$ }<)
+    (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,i+1)$ $\wedge$ $sum = SUM(T,i+2,*min\_pos,*max\_pos)$}<)
+    (>\coms{ $\wedge$ $new\_sum = NEWSUM(T,i+3,*min\_pos,*max\_pos)$}<)
+    */
+    }
+    /*
+    (>\coms{$INV$ $\wedge$ $\neg$ $B$ $\equiv$ $i == N$ $\wedge$ $T = T_0$ $\wedge$ $N = N_0$ }<)
+    (>\coms{$\wedge$ $*min\_pos = MINPOS(T,0,N)$ }<)
+    (>\coms{$\wedge$  $*max\_pos = MAXPOS(T,0,N)$ $\wedge$ $sum = SUM(T,N,*min\_pos,*max\_pos)$}<)
+    (>\coms{$\wedge$ $new\_sum = NEWSUM(T,N,*min\_pos,*max\_pos)$}<)
+    */
+    return sum; (>\label{code:ret}<)
+    /*
+    (>\coms{$POST$ $\equiv$ $T = T_0$ $\wedge$ $N = N_0$ $\wedge$ $sum = SUM(T,inf,sup)$ }<)
+    (>\coms{$\wedge$ $*max\_pos = MAXPOS(T,0,N)$ $\wedge$ $*min\pos = MINPOS(T,0,N)$}<)
+}   */
+\end{lstlisting}

@@ -1,0 +1,28 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans cette section, introduisez toutes les notations mathématiques que vous jugez      %
+% utiles à la réalisation du projet.                                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Formalisation du Problème}\label{formalisation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Voici 3 prédicats dont un prédicat intermédiaire. Rappel : un prédicat est une fonction produisant une valeur boolénne.}
+\subsubsection{Prédicat A}
+\paragraph{La notation est MAXPOS \newline \newline
+La formalisation est $MAXPOS(T,Inf,Sup)\equiv\newline (\exists x\;= max_{i \in Inf...Sup-1},\;(T[i]))\;\wedge\; (\exists j,\;Inf\leq j \leq Sup-1,\;T[j]=x)\;\wedge\;(\exists maxPos,\;Inf\leq maxPos \leq Sup-1,\;maxPos=j) $} \newline
+\subsubsection{Prédicat B}
+\paragraph{La notation est MINPOS \newline \newline
+La formalisation est $MINPOS(T,Inf,Sup)\equiv\newline (\exists y\;= min_{i \in Inf...Sup-1},\;(T[i]))\;\wedge\; (\exists j,\;Inf\leq j \leq Sup-1,\;T[j]=y)\;\wedge\;(\exists minPos,\;inf\leq minPos \leq Sup-1,\;minPos=j) $} \newline
+\subsubsection{Prédicat C}
+\paragraph{La notation est SUM \newline \newline
+La formalisation est $SUM(T,N,min\_pos,max\_pos) \equiv \newline
+(\forall i,\; 0\leq i \leq N-1,\;sum = \sum_{i=min(min\_pos,max\_pos)}^{max(min\_pos, max\_pos)} T[i])$}
+\newline \newline
+\subsubsection{Prédicat D}
+\paragraph{La notation est NEWSUM} \newline \newline
+\paragraph{La formalisation est $NEWSUM(T,N,min\_pos, max\_pos) \equiv 
+\newline
+(\forall i, 0 \leq i \leq N-1,\exists new\_sum = \sum_{a = max(min\_pos,max\_pos)}^{i-1} T[a]$}
+
+
+
+

@@ -1,0 +1,48 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans cette section, indiquez le code complet (sans assertions intermédiaires) de votre %
+% solution                                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Code Complet}\label{code}
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lstlisting}[caption={somme.c}]
+int somme(T,N,*min_pos,*max_pos){
+    assert(T != NULL && N > 0 && min_pos != NULL && max_pos != NULL)
+    int min = T[0];
+    int max = T[0];
+    int sum = T[0];
+    int new_sum = 0;
+    *min_pos = *max_pos = 0;
+
+    int i = 0;
+    while(i < N){
+     new_sum += T[i];
+
+     if(T[i] < min){
+        if(*max_pos <= *min_pos)
+            sum += new_sum - T[*min_pos];
+
+        else
+            sum = new_sum;
+
+         new_sum = T[i];
+         min = T[i];
+         *min_pos = i;
+     }
+     if(T[i] > max){
+        if(*min_pos <= *max_pos)
+            sum += new_sum - T[*max_pos];
+
+        else
+            sum  = new_sum
+
+        new_sum = T[i];
+        max = T[i];
+       *max_pos = i;
+     }
+    i++;
+    }
+    
+    return sum; (>\label{code:ret}<)
+}
+\end{lstlisting}

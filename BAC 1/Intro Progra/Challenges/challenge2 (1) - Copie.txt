@@ -1,0 +1,139 @@
+/*
+Devoir 2 : Boucles & Invariants Graphiques
+
+Rappel des consignes générales de soumission :
+----------------------------------------------
+
+- Vous pouvez écrire des commentaires, comme vous le feriez dans un code C ;
+- Hors des commentaires, n'utilisez que des cractères ASCII ;
+- Respectez scrupuleusement les consignes de soumissions pour ne pas recevoir
+  une cote nulle ;
+- NE PAS TOUCHER AUX CARACTÈRES '#'. Ils sont placés aux bons endroits. Faites
+  en sorte de ne pas les inclure dans un commentaire...
+- Utilisez un éditeur de texte qui permet la coloration de la syntaxe du C
+  (Atom, gedit sur linux, notepad++ sur windows, ...)
+
+Consignes spécifiques à ce devoir :
+-----------------------------------
+
+La manière exacte de spécifier les éléments complétant les Invariants Graphiques
+est détaillée dans l'énoncé. Veuillez vous y reporter pour de plus amples
+informations.
+
+CONSEIL :
+Ouvrez ce fichier dans Atom (ou autre), activez la coloration syntaxique du C,
+ainsi que la mise en évidence des parenthèses correspondantes pour ne pas vous
+tromper.
+*/
+/*
+Invariant Graphique du SP1 : Afficher N lignes du damier
+________________________________________________________________________________
+
+Indiquez après ce commentaire vos huit choix, comme indiqué dans l'énoncé
+(numéro de boite, suivi d'un point, suivi de la valeur numérique ou du nom de
+variable/constante de votre choix (pour les boites 1 à 4 et 6 à 7) ou d’un nombre
+entre 1 et 6 correspondant à votre choix pour les boite 5 et 8).
+
+Pour votre facilité, les huit numéros de boite et les points sont déjà indiqués.
+Respectez l'ordre croissant des numéros de boite.
+*/
+1.0
+2.
+3.i
+4.n
+5.5
+6.0
+7.n
+8.2
+/* Encodez votre réponse à l'Invariant Graphique du SP1 ci-dessus */
+#
+/*
+Fonction de Terminaison du SP1 : Afficher N lignes du damier
+________________________________________________________________________________
+
+Indiquez, après ce commentaire, l'expressions C qui décrit la valeur que prend
+votre Fonction de Terminaison
+*/
+   n-i
+
+
+
+/* Indiquez ci-dessus votre Fonction de Terminaison pour le SP1 */
+#
+/*
+Invariant Graphique du SP2 : Écrire, sur une ligne du damier, N caractères
+________________________________________________________________________________
+
+Indiquez après ce commentaire vos dix choix, comme indiqué dans l'énoncé
+(numéro de boite, suivi d'un point, suivi de la valeur numérique ou du nom de
+variable/constante de votre choix (pour les boites 1 à 4, 6, 8 et 9) ou d’un
+nombre entre 1 et 6 correspondant à votre choix pour les boites 5, 7 et 10).
+
+Pour votre facilité, les dix numéros de boite et les points sont déjà indiqués.
+Respectez l'ordre croissant des numéros de boite.
+*/
+1.a
+2.
+3.j
+4.n
+5.5
+6.
+7.3
+8.a
+9.n
+10.1
+/* Encodez votre réponse à l'Invariant Graphique du SP2 ci-dessus */
+#
+/*
+Fonction de Terminaison du SP2 : Écrire, sur une ligne du damier, N caractères
+________________________________________________________________________________
+
+Indiquez, après ce commentaire, l'expressions C qui décrit la valeur que prend
+votre Fonction de Terminaison
+*/
+   n-j
+
+
+/* Indiquez ci-dessus votre Fonction de Terminaison pour le SP2 */
+#
+/*
+Indiquez après ce commentaire votre code.
+
+Dans la suite, vous ne devez écrire QUE ce qui, selon vous, devrait remplacer la
+ ligne "votre code viendra ici (variables + instructions)" dans le squelette
+ mentionné dans l'énoncé.
+
+VOUS NE DEVEZ SURTOUT PAS :
+- Ajouter une ligne "#include <stdio.h>" ;
+- Écrire "int main(){" ni la '}' qui ferme celle ouverte après 'main' ;
+- Redéclarer N, C1 ou C2. Ces constantes sont DÉJÀ déclarées. Si vous
+  les redéclarez, la compilation et l'évaluation de votre code sera impossible.
+
+Voici un exemple pour N=6, C1='&', C2='+', tel qu'il devrait apparaitre
+sur la sortie standard suite à l'exécution de votre code :
+& & & + + +
+& & & + + +
+& & & + + +
++ + + & & &
++ + + & & &
++ + + & & &
+*/
+
+unsigned int i = 0;
+   while (i < N){
+     for (unsigned int j = 0; j < N; j++){
+       if ((i < N / 2) && (j < N/2) || (i >= N/2) && (j >= N/2))
+          printf("%c ", C1);
+       else
+          printf("%c ", C2);
+
+  }
+  printf("\n");
+  i++;
+
+}
+
+
+
+/* Indiquez ci-dessus votre extrait de code. */
+

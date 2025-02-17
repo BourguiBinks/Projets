@@ -1,0 +1,34 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans ce fichier, vous devez définir (Input/Output/O.U.) proprement et clairement le    %
+% problème.
+%
+% Il est aussi demandé de réaliser une analyse complète (i.e., découpe en SPs)           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Définition et Analyse du Problème}\label{analyse}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Input}
+\paragraph{-$T$, tableau d'entiers \\ 
+-$N$, taille du tableau\\
+-$*min\_pos$, un pointeur vers la position du minimum\\
+-$*max\_pos$, un pointeur vers la position du maximum}
+\subsection{Output}
+\paragraph{La somme des éléments entre la position minimale et la position maximale (inclus)}
+\subsection{Objets Utilisés}
+\paragraph{-$T$, tableau d'entiers ($int *T$) \\
+-$N$, valeur entière ($int\;N$)\\
+-$sum$, valeur entière ($int \;sum$)\\
+-$new\_sum$, valeur entière ($int\; new\_sum$)\\
+}
+\subsection{Découpe en sous problèmes}
+\paragraph{SP 1: calcul de MAXPOS(T,0,i) et de MINPOS(T, 0, i)\\
+SP 2: Mettre à jour l'indice de max\_pos et min\_pos respectivement par MAXPOS(T,0,i) et MINPOS(T,0,i)\\
+SP 3: Calcul de SUM(T,N,min\_pos,max\_pos)\\} 
+\subsection{Emboitement}
+\paragraph{SP1 $\rightarrow$ (SP3 $\subset$ SP2)}
+
+
+
+
+

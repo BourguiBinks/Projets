@@ -1,0 +1,24 @@
+while (consommation < CONSOMMATION_INIT*2){
+  annees = annees + 1; 
+  consommation = consommation + consommation * 0.08;
+}
+
+
+
+
+
+for(annees = 0; consommation < CONSOMMATION_INIT*2; annees++){
+  consommation = consommation + consommation * (0.08);
+  }
+
+
+
+
+do{
+  annee++;
+  consommation = consommation * 1.08;
+
+while(consommation < CONSOMMATION_INIT*2);
+}
+
+
